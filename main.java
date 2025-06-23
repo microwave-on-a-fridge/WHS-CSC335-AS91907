@@ -28,7 +28,7 @@ public class main {
             switch (option) {
                 case "a":
                     Input.clear();
-                    //queue.addUser(createUser());
+                    queue.addUser(createUser());
             }
         }
     }
@@ -36,10 +36,14 @@ public class main {
     public static User createUser() {
         final String[] ILLEGAL = {","};
         String username = Input.stringNoChar("Please input a username less than 8 characters.", 8, ILLEGAL);
-        boolean isSolo = Input.yesNo("Are you solo queueing? (y/N)", false);
-        boolean isStaff = Input.yesNo("Are you a staff member? (y/N)", false);
-        int sidePreference = Input.integer("Please choose a side [placeholder add more text]", 2);
-        User user = new User(username, isSolo, isStaff, sidePreference);
+        boolean solo = Input.yesNo("Are you solo queueing? (y/N)", false);
+        boolean staff = Input.yesNo("Are you a staff member? (y/N)", false);
+        boolean hasSidePreference = Input.yesNo("Do you have a side preference? (Y/n)", true);
+        int sidePreference = 0;
+        if (hasSidePreference) {
+            sidePreference = Input.integer("Do you prefer player 1 or player 2 side?", 2);
+        }
+        User user = new User(username, solo, staff, sidePreference);
         return(user);
     }
 }

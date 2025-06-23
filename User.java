@@ -7,14 +7,30 @@
  */
 public class User {
     private String username;
-    private boolean isSolo;
-    private boolean isStaff;
+    private boolean solo;
+    private boolean staff;
     private int sidePreference;
     
-    public User(String username, boolean isSolo, boolean isStaff, int sidePreference) {
+    public User(String username, boolean solo, boolean staff, int sidePreference) {
         this.username = username;
-        this.isSolo = isSolo;
-        this.isStaff = isStaff;
+        this.solo = solo;
+        this.staff = staff;
         this.sidePreference = sidePreference;
+    }
+    
+    public String getUsername() {
+        return(this.username);
+    }
+    
+    public boolean isSolo() {
+        return(this.solo);
+    }
+    
+    public boolean isStaff() {
+        return(this.staff);
+    }
+    
+    public int getSidePref() {
+        return(this.sidePreference);
     }
 }
