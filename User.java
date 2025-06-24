@@ -5,6 +5,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+
 public class User {
     private String username;
     private boolean solo;

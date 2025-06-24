@@ -7,6 +7,7 @@
  */
 
 import java.util.Queue;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ArcadeQueue {
@@ -22,6 +23,10 @@ public class ArcadeQueue {
     }
     
     public void listUsers() {
-        
+          System.out.println("Next queue member: " + highPriority.peek());
+          Iterator<User> it = highPriority.iterator();
+          while(it.hasNext()){
+              System.out.println(it.next());
+          }
     }
 }
