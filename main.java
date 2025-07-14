@@ -10,7 +10,7 @@
 
 public class main {
     public static void main(String[] args) {
-        final String[] MENU_OPTIONS = {"o", "c", "l", "g", "d", "w", "q"};
+        final String[] MENU_OPTIONS = {"n", "a", "r", "c", "q"};
         String option;
         boolean running = true;
 
@@ -19,16 +19,35 @@ public class main {
         while (running) {
             System.out.println("maimai Queue System");
             System.out.println("-------------------");
+            System.out.println("N: Move to next entry in the queue");
             System.out.println("A: Add someone to the queue");
             System.out.println("R: Remove someone from the queue");
             System.out.println("C: Check the queue");
+            System.out.println("Q: Quit");
 
             option = Input.menu("", MENU_OPTIONS);
             
             switch (option) {
+                case "n":
+                    Input.clear();
+                    // next user
+                    break;
                 case "a":
                     Input.clear();
                     queue.addUser(createUser());
+                    break;
+                case "r":
+                    Input.clear();
+                    // removal stuff
+                    break;
+                case "c":
+                    Input.clear();
+                    // queue print stuff
+                    break;
+                case "q":
+                    Input.clear();
+                    System.exit(0);
+                    break;
             }
         }
     }
