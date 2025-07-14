@@ -1,32 +1,33 @@
 
 /**
- * Write a description of class Queue here.
+ * Class to create the queue
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @amyamyamyamy
+ * @2025-07-15
  */
 
-import java.util.Queue;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class ArcadeQueue {
-    Queue<User> lowPriority = new LinkedList<User>();
-    Queue<User> highPriority = new LinkedList<User>();
+    ArrayList<User> p1 = new ArrayList<User>();
+    ArrayList<User> p2 = new ArrayList<User>();
 
     public void addUser(User user) {
-        if (user.isStaff()) {
-            highPriority.add(user);
-        } else {
-            lowPriority.add(user);
+        switch (user.sidePref()) {
+            case 0:
+                break;
+            case 1:
+                if (user.isSolo()) {
+                    p1.add(user);
+                    //p2.add(
+                }
+                break;
+            case 2:
+                break;
         }
     }
     
     public void listUsers() {
-          System.out.println("Next queue member: " + highPriority.peek());
-          Iterator<User> it = highPriority.iterator();
-          while(it.hasNext()){
-              System.out.println(it.next());
-          }
+          System.out.println("Next players: " + p1.get(0) + p2.get(0));
     }
 }

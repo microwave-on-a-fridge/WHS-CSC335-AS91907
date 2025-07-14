@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class Profile here.
+ * Class to create individual profiles (members of a queue)
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @AMYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+ * @2025-07-15
  */
 
 public class User {
@@ -31,7 +31,7 @@ public class User {
         return(this.staff);
     }
     
-    public int getSidePref() {
+    public int sidePref() {
         return(this.sidePreference);
     }
 }
