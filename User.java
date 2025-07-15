@@ -12,10 +12,13 @@ public class User {
     private boolean staff;
     private int sidePreference;
     
-    public User(String username, boolean solo, boolean staff, int sidePreference) {
+    private boolean dummy; // not set by the user
+    
+    public User(String username, boolean solo, boolean staff, int sidePreference, boolean dummy) {
         this.username = username;
         this.solo = solo;
         this.staff = staff;
+        this.dummy = dummy;
         this.sidePreference = sidePreference;
     }
     
@@ -33,5 +36,9 @@ public class User {
     
     public int sidePref() {
         return(this.sidePreference);
+    }
+    
+    public boolean isDummy() { // if someone is solo queueing or if there is a free space use this
+        return(this.dummy);
     }
 }

@@ -42,7 +42,7 @@ public class main {
                     break;
                 case "c":
                     Input.clear();
-                    // queue print stuff
+                    queue.listUsers();
                     break;
                 case "q":
                     Input.clear();
@@ -62,7 +62,7 @@ public class main {
         if (hasSidePreference) {
             sidePreference = Input.integer("Do you prefer player 1 or player 2 side?", 2);
         }
-        User user = new User(username, solo, staff, sidePreference);
+        User user = new User(username, solo, staff, sidePreference, false);
         return(user);
     }
 }

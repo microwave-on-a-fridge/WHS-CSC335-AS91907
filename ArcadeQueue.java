@@ -9,9 +9,12 @@
 import java.util.ArrayList;
 
 public class ArcadeQueue {
-    ArrayList<User> p1 = new ArrayList<User>();
-    ArrayList<User> p2 = new ArrayList<User>();
+    private ArrayList<User> p1 = new ArrayList<User>();
+    private ArrayList<User> p2 = new ArrayList<User>();
 
+    User soloDummy = new User("", true, false, 0, true); // put this next to someone solo
+    User dummyUser = new User("", false, false, 0, true); // put this in an empty spot
+    
     public void addUser(User user) {
         switch (user.sidePref()) {
             case 0:
@@ -19,15 +22,23 @@ public class ArcadeQueue {
             case 1:
                 if (user.isSolo()) {
                     p1.add(user);
-                    //p2.add(
+                    p2.add(dummyUser);
                 }
                 break;
             case 2:
+                if (user.isSolo()) {
+                    p1.add(dummyUser);
+                    p2.add(user);
+                }
                 break;
         }
     }
     
     public void listUsers() {
-          System.out.println("Next players: " + p1.get(0) + p2.get(0));
+        for (int i=0; i<p1.size(); i++) {
+            if (p1.get(i).isDummy() || p2.get(i).isDummy()) {
+                System.out.println("Next players: " + p1.get(i).getUsername() + p2.get(i).getUsername());
+            }
+        }
     }
 }
