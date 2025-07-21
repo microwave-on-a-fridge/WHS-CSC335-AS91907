@@ -3,10 +3,11 @@
  * Class to create the queue
  *
  * @amyamyamyamy
- * @2025-07-15
+ * @2025-07-22
  */
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ArcadeQueue {
     private ArrayList<User> p1 = new ArrayList<User>();
@@ -15,48 +16,74 @@ public class ArcadeQueue {
     User soloDummy = new User("", true, false, 0, true); // put this next to someone solo
     User dummyUser = new User("", false, false, 0, true); // put this in an empty spot
     
+    // let me cook
     public void addUser(User user) {
-        switch (user.sidePref()) {
-            case 0:
-                break;
-            case 1:
-                if (user.isSolo()) {
+        int side;
+        if (user.sidePref() != 0) {
+            side = user.sidePref();
+        } else {
+            boolean found = false;
+            int p1Number = 0;
+            int p2Number = 0;
+            for (int i=0; i<p1.size(); i++) {
+                if (p1.get(i).isDummy() && !p1.get(i).isSolo()) {
+                    p1Number = i;
+                    found = true;
+                    return;
+                }
+            }
+            for (int i=0; i<p2.size(); i++) {
+                if (p2.get(i).isDummy() && !p2.get(i).isSolo()) {
+                    p2Number = i;
+                    found = true;
+                    return;
+                }
+            }
+            if (p1Number < p2Number) {
+                side = 1;
+            } else if (p1Number > p2Number) {
+                side = 2;
+            } else {
+                side = (int) Math.round(Math.random() + 1);
+            }
+        }
+        
+        if (side == 1) {
+            if (user.isSolo()) {
                     p1.add(user);
                     p2.add(soloDummy);
-                } else {
-                    boolean found = false;
-                    for (int i=0; i<p1.size(); i++) {
-                        if (p1.get(i).isDummy() && !p1.get(i).isSolo()) {
-                            p1.set(i, user);
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        p1.add(user);
-                        p2.add(dummyUser);
+            } else {
+                boolean found = false;
+                for (int i=0; i<p1.size(); i++) {
+                    if (p1.get(i).isDummy() && !p1.get(i).isSolo()) {
+                        p1.set(i, user);
+                        found = true;
+                        return;
                     }
                 }
-                break;
-            case 2:
-                if (user.isSolo()) {
+                if (!found) {
+                    p1.add(user);
+                    p2.add(dummyUser);
+                }
+            }
+        } else {
+            if (user.isSolo()) {
                     p1.add(soloDummy);
                     p2.add(user);
-                } else {
-                    boolean found = false;
-                    for (int i=0; i<p1.size(); i++) {
-                        if (p2.get(i).isDummy() && !p2.get(i).isSolo()) {
-                            p2.set(i, user);
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        p1.add(dummyUser);
-                        p2.add(user);
+            } else {
+                boolean found = false;
+                for (int i=0; i<p2.size(); i++) {
+                    if (p2.get(i).isDummy() && !p2.get(i).isSolo()) {
+                        p2.set(i, user);
+                        found = true;
+                        return;
                     }
                 }
-                break;
+                if (!found) {
+                    p1.add(dummyUser);
+                    p2.add(user);
+                }
+            }
         }
     }
     
