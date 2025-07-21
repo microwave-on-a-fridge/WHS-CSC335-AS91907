@@ -26,14 +26,15 @@ public class ArcadeQueue {
                 } else {
                     boolean found = false;
                     for (int i=0; i<p1.size(); i++) {
-                        if (p1.get(i).getUsername().equals("") && !p1.get(i).isSolo()) {
+                        if (p1.get(i).isDummy() && !p1.get(i).isSolo()) {
                             p1.set(i, user);
                             found = true;
+                            break;
                         }
                     }
                     if (!found) {
                         p1.add(user);
-                        p1.add(dummyUser);
+                        p2.add(dummyUser);
                     }
                 }
                 break;
@@ -41,6 +42,19 @@ public class ArcadeQueue {
                 if (user.isSolo()) {
                     p1.add(soloDummy);
                     p2.add(user);
+                } else {
+                    boolean found = false;
+                    for (int i=0; i<p1.size(); i++) {
+                        if (p2.get(i).isDummy() && !p2.get(i).isSolo()) {
+                            p2.set(i, user);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        p1.add(dummyUser);
+                        p2.add(user);
+                    }
                 }
                 break;
         }
@@ -49,6 +63,8 @@ public class ArcadeQueue {
     public void listUsers() {
         for (int i=0; i<p1.size(); i++) {
             if (p1.get(i).isDummy() || p2.get(i).isDummy()) {
+                System.out.println(p1.get(i).getUsername() + p2.get(i).getUsername());
+            } else {
                 System.out.println(p1.get(i).getUsername() + ", " + p2.get(i).getUsername());
             }
         }
