@@ -57,7 +57,7 @@ public class main {
         String username = Input.stringNoChar("Please input a username less than 8 characters.", 8, ILLEGAL);
         boolean solo = Input.yesNo("Are you solo queueing? (y/N)", false);
         boolean staff = Input.yesNo("Are you a staff member? (y/N)", false);
-        boolean hasSidePreference = Input.yesNo("Do you have a side preference? (Y/n)", true);
+        boolean hasSidePreference = Input.yesNo("Do you have a side preference? (y/N)", false);
         int sidePreference = 0;
         if (hasSidePreference) {
             sidePreference = Input.integer("Do you prefer player 1 or player 2 side?", 2);
