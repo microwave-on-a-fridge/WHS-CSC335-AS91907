@@ -3,7 +3,7 @@
  * Class to create the queue
  *
  * @amyamyamyamy
- * @2025-07-22
+ * @2025-07-28
  */
 
 import java.util.ArrayList;
@@ -14,43 +14,20 @@ public class ArcadeQueue {
     private ArrayList<User> p2 = new ArrayList<User>();
 
     User soloDummy = new User("soloDummy", true, false, 0, true); // put this next to someone solo
-    User dummyUser = new User("dummyUser", false, false, 0, true); // put this in an empty spot
+    //User dummyUser = new User("dummyUser", false, false, 0, true); // put this in an empty spot
 
     // let me cook
-    
+
     // note to self: this might be very inefficient, look into replacing the dummy user thng
     public void addUser(User user) {
         int side;
         if (user.sidePref() != 0) {
             side = user.sidePref();
         } else {
-            boolean lock = false;
-            int p1Number = 0;
-            int p2Number = 0;
-            for (int i=0; i<p1.size(); i++) {
-                if (p1.get(i).isDummy() && !p1.get(i).isSolo()) {
-                    if (!lock) {
-                        p1Number = i;
-                        lock = true;
-                        System.out.println("p1 length " + p1Number);
-                    }
-                }
-            }
-            lock = false;
-            for (int i=0; i<p2.size(); i++) {
-                if (p2.get(i).isDummy() && !p2.get(i).isSolo()) {
-                    if (!lock) {
-                        p2Number = i;
-                        lock = true;
-                        System.out.println("p2 length " + p2Number);
-                    }
-                }
-            }
-
-            if (p1Number < p2Number) {
+            if (p1.size() < p2.size()) {
                 side = 1;
                 System.out.println("p1 side");
-            } else if (p1Number > p2Number) {
+            } else if (p1.size() > p2.size()) {
                 side = 2;
                 System.out.println("p2 side");
             } else {
@@ -59,52 +36,47 @@ public class ArcadeQueue {
             }
         }
 
+        // theres no way this works how i want it to but fuck it
         if (side == 1) {
             if (user.isSolo()) {
                 p1.add(user);
-                p2.add(soloDummy);
+                //p2.add(soloDummy);
             } else {
-                boolean found = false;
-                for (int i=0; i<p1.size(); i++) {
-                    if (p1.get(i).isDummy() && !p1.get(i).isSolo()) {
-                        p1.set(i, user);
-                        found = true;
-                        return;
-                    }
-                }
-                if (!found) {
+                if (p2.size() > p1.size() + 1 && p2.get(p1.size() + 1).isSolo()) {
+                    p1.add(soloDummy);
                     p1.add(user);
-                    p2.add(dummyUser);
+                } else {
+                    p1.add(user);
                 }
             }
         } else {
             if (user.isSolo()) {
-                p1.add(soloDummy);
+                //p1.add(soloDummy);
                 p2.add(user);
             } else {
-                boolean found = false;
-                for (int i=0; i<p2.size(); i++) {
-                    if (p2.get(i).isDummy() && !p2.get(i).isSolo()) {
-                        p2.set(i, user);
-                        found = true;
-                        return;
-                    }
-                }
-                if (!found) {
-                    p1.add(dummyUser);
+                if (p1.size() > p2.size() + 1 && p1.get(p2.size() + 1).isSolo()) {
+                    p2.add(soloDummy);
+                    p2.add(user);
+                } else {
                     p2.add(user);
                 }
             }
         }
     }
 
+    // i am coding like piratesoftware right now the fuck am i doing
     public void listUsers() {
-        for (int i=0; i<p1.size(); i++) {
-            if (p1.get(i).isDummy() || p2.get(i).isDummy()) {
-                System.out.println(p1.get(i).getUsername() + p2.get(i).getUsername());
-            } else {
-                System.out.println(p1.get(i).getUsername() + ", " + p2.get(i).getUsername());
+        boolean what = false;
+        while (!what) {
+            String p1Name = "";
+            String p2Name = "";
+            for (int i=0; i<p1.size(); i++) {
+                p1Name = p1.get(i).getUsername();
             }
+            for (int i=0; i<p2.size(); i++) {
+                p2Name = p2.get(i).getUsername();
+            }
+            System.out.println(p1Name + ", " + p2Name);
         }
     }
 }

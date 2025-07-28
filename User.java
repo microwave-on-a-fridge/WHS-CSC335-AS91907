@@ -3,7 +3,7 @@
  * Class to create individual profiles (members of a queue)
  *
  * @AMYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
- * @2025-07-22
+ * @2025-07-28
  */
 
 public class User {
