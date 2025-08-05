@@ -5,12 +5,12 @@
  * if i could control rewind, i would want... fortnite. and marques brownlee
  *
  * @AMY!!!!!!
- * @2025-07-28
+ * @2025-08-06
  */
 
 public class main {
     public static void main(String[] args) {
-        final String[] MENU_OPTIONS = {"n", "a", "r", "c", "q"};
+        final String[] MENU_OPTIONS = {"n", "a", "r", "v", "q"};
         String option;
         boolean running = true;
 
@@ -19,10 +19,10 @@ public class main {
         while (running) {
             System.out.println("maimai Queue System");
             System.out.println("-------------------");
-            System.out.println("N: Move to next entry in the queue");
+            System.out.println("N: Display the next players and remove them from the queue");
             System.out.println("A: Add someone to the queue");
             System.out.println("R: Remove someone from the queue");
-            System.out.println("C: Check the queue");
+            System.out.println("V: View the whole queue");
             System.out.println("Q: Quit");
 
             option = Input.menu("", MENU_OPTIONS);
@@ -30,7 +30,7 @@ public class main {
             switch (option) {
                 case "n":
                     Input.clear();
-                    // next user
+                    queue.nextPlayers();
                     break;
                 case "a":
                     Input.clear();
@@ -40,7 +40,7 @@ public class main {
                     Input.clear();
                     // removal stuff
                     break;
-                case "c":
+                case "v":
                     Input.clear();
                     queue.listUsers();
                     break;
@@ -54,15 +54,9 @@ public class main {
     
     public static User createUser() {
         final String[] ILLEGAL = {","};
-        String username = Input.stringNoChar("Please input a username less than 8 characters.", 8, ILLEGAL);
+        String username = Input.stringNoChar("Please input a username 8 characters or less.", 8, ILLEGAL);
         boolean solo = Input.yesNo("Are you solo queueing? (y/N)", false);
-        boolean staff = Input.yesNo("Are you a staff member? (y/N)", false);
-        boolean hasSidePreference = Input.yesNo("Do you have a side preference? (y/N)", false);
-        int sidePreference = 0;
-        if (hasSidePreference) {
-            sidePreference = Input.integer("Do you prefer player 1 or player 2 side?", 2);
-        }
-        User user = new User(username, solo, staff, sidePreference, false);
+        User user = new User(username, solo);
         return(user);
     }
 }
