@@ -8,6 +8,10 @@
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner; // for file reading
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ArcadeQueue {
     private ArrayList<User> queue = new ArrayList<User>();
@@ -23,7 +27,11 @@ public class ArcadeQueue {
     // i am coding like piratesoftware right now the fuck am i doing
     public void listUsers() {
         for (int i = 0; i < queue.size(); i++) { // i will start writing these with spaces
-            System.out.println(queue.get(i).getUsername());
+            if (queue.get(i).isSolo()) {
+                System.out.println(queue.get(i).getUsername() + " (solo)");
+            } else {
+                System.out.println(queue.get(i).getUsername());
+            }
         }
     }
     
@@ -49,6 +57,53 @@ public class ArcadeQueue {
             queue.remove(0);
             /* what was entry 1 will become entry 0 because we just removed 0 on the line above */
             queue.remove(0);
+        }
+    }
+    
+    public void removeUser(String username) {
+        boolean found = false;
+        for (int i = 0; i < queue.size(); i++) {
+            if (queue.get(i).getUsername().equals(username)) {
+                queue.remove(i);
+                System.out.println("Successfully removed " + username);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Unable to find \"" + username + "\", please make sure this user exists.");
+        }
+    }
+    
+    /* file stuff below */
+
+    public void readCSV(String fileName) {
+        File csvFile = new File(fileName);
+        try {
+            Scanner reader = new Scanner(csvFile);
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+                String[] separated = line.split(",");
+                /* add the values from the array of comma separated items to a new account */
+                this.queue.add(new User(separated[0], Boolean.parseBoolean(separated[1])));
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading CSV: " + e.getMessage());
+        }
+    }
+
+    /* write the queue info to a CSV */
+    public void writeCSV(String fileName) {
+        File csvFile = new File(fileName);
+        try {
+            FileWriter writer = new FileWriter(csvFile);
+            for (User user : queue) {
+                writer.write(user.getUsername() + ",");
+                writer.write(user.isSolo() + "\n");
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("Error writing CSV: " + e.getMessage());
         }
     }
 }
